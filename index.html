@@ -1,4 +1,21 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simon Says Game</title>
+</head>
 <body>
+<div id="simon-says">
+  <h1>Simon Says</h1>
+  <div id="game">
+    <div class="button green" onclick="handleClick('green')"></div>
+    <div class="button red" onclick="handleClick('red')"></div>
+    <div class="button yellow" onclick="handleClick('yellow')"></div>
+    <div class="button blue" onclick="handleClick('blue')"></div>
+  </div>
+  <button onclick="startGame()">Start Game</button>
+</div>
+
 </body>
 </html>
