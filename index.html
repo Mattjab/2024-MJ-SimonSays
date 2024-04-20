@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simon Says Game</title>
-  </head>
+    <title>Simon Says</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
+    <!-- Container for the game -->
     <div class="container">
-        <h1>Welcome to Simon's Game</h1>
-        <p>this version of simon says will have 2 answer one is right and the other is wrong simon will say something and u need to pick the right answer!!!</p>
-        <div class="description">
-            <h2>Game Description</h2>
-            <p>there is an end Maybe to this game however no one has reached it!! the game will have a timer that counts down if you let the timer reach zero ya lose you will also have lives before you completley lose and have to restart</p>
-            <p>are you ready to Prove YOU ARE A GAMMER?</p>
-        </div>
+        <!-- Title of the game -->
+        <h1>Simon Says</h1>
+        <!-- Display area for messages -->
+        <div id="message"></div>
+        <!-- Buttons for player choices -->
+        <button id="doBtn">Do</button>
+        <button id="dontDoBtn">Don't Do</button>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
