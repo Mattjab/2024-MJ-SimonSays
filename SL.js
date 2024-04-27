@@ -1,46 +1,61 @@
-// Function to generate a random choice
-function getRandomChoice() {
-    const choices = ["Do", "Don't Do"];
-    const randomIndex = Math.floor(Math.random() * choices.length);
-    return choices[randomIndex];
-}
 
-// Function to display the message
-function displayMessage(message) {
-    const messageElement = document.getElementById('message');
-    messageElement.innerText = message;
-}
+  // Function to generate a random color (red or blue)
+        function getRandomColor() {
+            const colors = ["red", "blue"]; // Array of colors
+            const randomIndex = Math.floor(Math.random() * colors.length); // Generate random index
+            return colors[randomIndex]; // Return random color
+        }
 
-// Function to start the game
-function startGame() {
-    return new Promise((resolve, reject) => {
-        const correctChoice = getRandomChoice();
-        displayMessage(`Simon says: ${correctChoice}`);
-        
-        // Event listeners for buttons
-        document.getElementById('doBtn').addEventListener('click', () => {
-            if (correctChoice === "Do") {
-                resolve("You did it! Good job!");
-            } else {
-                reject("Oops! Simon didn't say to do that!");
+        // Function to display the message
+        function displayMessage(message) {
+            const messageElement = document.getElementById('message'); // Get message element
+            messageElement.innerText = message; // Set message text
+        }
+
+        // Function to start a round of the game
+        function startRound(round) {
+            return new Promise((resolve, reject) => {
+                const color = getRandomColor(); // Get random color for the round
+                displayMessage(`Simon says: ${color}`); // Display the color Simon says
+
+                // Event listeners for buttons
+                document.querySelector(`.${color}`).addEventListener('click', () => {
+                    if (round < 20) { // If not the last round
+                        resolve(`Correct! Round ${round + 1}`); // Resolve with success message
+                    } else {
+                        resolve(`Congratulations! You completed all rounds!`); // Resolve with completion message
+                    }
+                });
+
+                // After 3 seconds, remove the event listeners and reject if no choice is made
+                setTimeout(() => {
+                    document.querySelectorAll('button').forEach(button => {
+                        button.removeEventListener('click', () => {}); // Remove event listeners from buttons
+                    });
+                    reject("Time's up! You didn't make a choice."); // Reject with timeout message
+                }, 3000);
+            });
+        }
+
+        // Function to play the game
+        function playGame() {
+            let currentRound = 1; // Current round counter
+
+            function playNextRound() {
+                startRound(currentRound) // Start the current round
+                    .then(message => { // Handle success message
+                        displayMessage(message); // Display success message
+                        currentRound++; // Move to the next round
+                        if (currentRound <= 20) { // If not the last round
+                            playNextRound(); // Play the next round
+                        }
+                    })
+                    .catch(error => displayMessage(error)); // Handle error message
             }
-        });
 
-        document.getElementById('dontDoBtn').addEventListener('click', () => {
-            if (correctChoice === "Don't Do") {
-                resolve("You didn't do it! Well done!");
-            } else {
-                reject("Oops! Simon didn't say not to do that!");
-            }
-        });
-    });
-}
+            playNextRound(); // Start playing the game
+        }
 
-// Start the game when the page loads
-window.onload = () => {
-    // Start the game and handle success or failure
-    startGame()
-        .then(message => displayMessage(message))
-        .catch(error => displayMessage(error));
-};
-
+        // Start the game when the page loads
+        window.onload = playGame; // Start the game when the page loads
+    
