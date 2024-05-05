@@ -1,51 +1,29 @@
  /* CSS styles for the game */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Light gray background */
-        }
+      .simon-container {
+    display: flex;
+    justify-content: center;
+}
 
-        .container {
-            max-width: 400px; /* Maximum width for the container */
-            margin: 50px auto; /* Center the container horizontally */
-            text-align: center; /* Center align text */
-            background-color: #fff; /* White background */
-            padding: 20px; /* Padding inside the container */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-        }
+.simon-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px;
+    cursor: pointer;
+}
 
-        h1 {
-            color: #333; /* Dark gray color for the heading */
-        }
+#green {
+    background-color: green;
+}
 
-        button {
-            margin: 10px; /* Margin around buttons */
-            padding: 10px 20px; /* Padding inside buttons */
-            font-size: 18px; /* Font size */
-            cursor: pointer; /* Cursor style */
-            border: none; /* No border */
-            border-radius: 5px; /* Rounded corners */
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
-        }
+#red {
+    background-color: red;
+}
 
-        button:hover {
-            background-color: #45a049; /* Darker green background color on hover */
-        }
+#yellow {
+    background-color: yellow;
+}
 
-        #message {
-            margin-top: 20px; /* Margin on top of the message */
-            font-size: 20px; /* Font size */
-            color: #333; /* Dark gray color for the message text */
-        }
-
-        /* Style for red button */
-        .red {
-            background-color: red; /* Red background */
-            color: white; /* White text color */
-        }
-
-        /* Style for blue button */
-        .blue {
-            background-color: blue; /* Blue background */
-            color: white; /* White text color */
-        }
+#blue {
+    background-color: blue;
+}
