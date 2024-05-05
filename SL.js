@@ -1,61 +1,78 @@
+ // Array to hold the sequence of colors
+let sequence = [];
+// Variable to keep track of the user's progress in the sequence
+let userSequence = [];
+// Variable to track the level of the game
+let level = 0;
 
-  // Function to generate a random color (red or blue)
-        function getRandomColor() {
-            const colors = ["red", "blue"]; // Array of colors
-            const randomIndex = Math.floor(Math.random() * colors.length); // Generate random index
-            return colors[randomIndex]; // Return random color
+// Function to start the game
+function startGame() {
+    sequence = [];
+    userSequence = [];
+    level = 0;
+    nextSequence();
+}
+
+// Function to generate the next color in the sequence
+function nextSequence() {
+    // Increment the level
+    level++;
+    // Generate a random number between 0 and 3 to represent colors
+    let randomNumber = Math.floor(Math.random() * 4);
+    // Map the random number to a color and add it to the sequence
+    let colors = ['green', 'red', 'yellow', 'blue'];
+    let randomColor = colors[randomNumber];
+    sequence.push(randomColor);
+    // Display the sequence to the user
+    showSequence();
+}
+
+// Function to display the sequence to the user
+function showSequence() {
+    // Loop through the sequence array and display each color with a delay
+    sequence.forEach((color, index) => {
+        setTimeout(() => {
+            flashColor(color);
+        }, (index + 1) * 1000);
+    });
+}
+
+// Function to flash a color
+function flashColor(color) {
+    // Get the button element corresponding to the color
+    let button = document.getElementById(color);
+    // Add a class to apply a temporary style change
+    button.classList.add('active');
+    // Remove the class after a short delay to revert to the original style
+    setTimeout(() => {
+        button.classList.remove('active');
+    }, 500);
+}
+
+// Function to handle user clicks
+function handleClick(element) {
+    // Get the id of the clicked button
+    let color = element.id;
+    // Add the color to the user's sequence
+    userSequence.push(color);
+    // Check if the user's sequence matches the sequence so far
+    checkSequence();
+}
+
+// Function to check if the user's sequence matches the sequence so far
+function checkSequence() {
+    for (let i = 0; i < userSequence.length; i++) {
+        if (userSequence[i] !== sequence[i]) {
+            // If there's a mismatch, end the game
+            alert('Game Over! Try again.');
+            return;
         }
-
-        // Function to display the message
-        function displayMessage(message) {
-            const messageElement = document.getElementById('message'); // Get message element
-            messageElement.innerText = message; // Set message text
-        }
-
-        // Function to start a round of the game
-        function startRound(round) {
-            return new Promise((resolve, reject) => {
-                const color = getRandomColor(); // Get random color for the round
-                displayMessage(`Simon says: ${color}`); // Display the color Simon says
-
-                // Event listeners for buttons
-                document.querySelector(`.${color}`).addEventListener('click', () => {
-                    if (round < 20) { // If not the last round
-                        resolve(`Correct! Round ${round + 1}`); // Resolve with success message
-                    } else {
-                        resolve(`Congratulations! You completed all rounds!`); // Resolve with completion message
-                    }
-                });
-
-                // After 3 seconds, remove the event listeners and reject if no choice is made
-                setTimeout(() => {
-                    document.querySelectorAll('button').forEach(button => {
-                        button.removeEventListener('click', () => {}); // Remove event listeners from buttons
-                    });
-                    reject("Time's up! You didn't make a choice."); // Reject with timeout message
-                }, 3000);
-            });
-        }
-
-        // Function to play the game
-        function playGame() {
-            let currentRound = 1; // Current round counter
-
-            function playNextRound() {
-                startRound(currentRound) // Start the current round
-                    .then(message => { // Handle success message
-                        displayMessage(message); // Display success message
-                        currentRound++; // Move to the next round
-                        if (currentRound <= 20) { // If not the last round
-                            playNextRound(); // Play the next round
-                        }
-                    })
-                    .catch(error => displayMessage(error)); // Handle error message
-            }
-
-            playNextRound(); // Start playing the game
-        }
-
-        // Start the game when the page loads
-        window.onload = playGame; // Start the game when the page loads
-    
+    }
+    // If the sequences match and the user has completed the sequence, go to the next level
+    if (userSequence.length === sequence.length) {
+        setTimeout(() => {
+            nextSequence();
+            userSequence = [];
+        }, 1000);
+    }
+}
