@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Simon Game</h1>
-    <div class="simon-container">
-        <div id="green" class="simon-button" onclick="handleClick(this)"></div>
-        <div id="red" class="simon-button" onclick="handleClick(this)"></div>
-        <div id="yellow" class="simon-button" onclick="handleClick(this)"></div>
-        <div id="blue" class="simon-button" onclick="handleClick(this)"></div>
-    </div>
-    <button onclick="startGame()">Start</button>
-    <script src="script.js"></script>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button id="startButton">Start Game</button>
+    <script src="SL.js"></script>
 </body>
 </html>
-
